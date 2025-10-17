@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<section class="p-5 p-md-6 bg-white rounded-4 shadow-sm mb-4 hero-gradient">
+  <div class="row align-items-center">
+    <div class="col-md-7">
+      <h1 class="display-5 fw-bold mb-3">Bienvenue sur notre boutique</h1>
+      <p class="lead text-secondary">Découvrez nos produits, profitez d’offres exclusives et gérez votre panier en toute simplicité.</p>
+      <div class="d-flex gap-2 mt-3">
+        <a href="{{ url_for('product.index') }}" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-bag-shopping me-2"></i> Voir les produits
+        </a>
+        {% if not current_user.is_authenticated %}
+          <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary btn-lg">Créer un compte</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-md-5 d-none d-md-block">
+      <!-- Illustration inline (aucun fichier nécessaire) -->
+      <svg class="hero-illust w-100 h-auto" viewBox="0 0 520 400" role="img" aria-label="Illustration e-commerce">
+        <defs>
+          <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#0D6EFD"/>
+            <stop offset="1" stop-color="#22C55E"/>
+          </linearGradient>
+          <radialGradient id="hg2" cx="25%" cy="20%" r="70%">
+            <stop offset="0" stop-color="rgba(13,110,253,.25)"/>
+            <stop offset="1" stop-color="rgba(13,110,253,0)"/>
+          </radialGradient>
+          <radialGradient id="hg3" cx="90%" cy="10%" r="60%">
+            <stop offset="0" stop-color="rgba(34,197,94,.22)"/>
+            <stop offset="1" stop-color="rgba(34,197,94,0)"/>
+          </radialGradient>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity=".15"/>
+          </filter>
+        </defs>
+    
+        <!-- halos -->
+        <rect width="520" height="400" fill="url(#hg2)"/>
+        <rect width="520" height="400" fill="url(#hg3)"/>
+    
+        <!-- carte produit stylisée -->
+        <g transform="translate(60,80)" filter="url(#shadow)">
+          <rect x="0" y="0" rx="18" ry="18" width="360" height="220" fill="#fff"/>
+          <rect x="0" y="0" rx="18" ry="18" width="360" height="120" fill="url(#hg1)" opacity=".1"/>
+          <rect x="20" y="150" rx="8" width="110" height="14" fill="#9aa4b2"/>
+          <rect x="20" y="172" rx="7" width="80" height="10" fill="#c7cdd6"/>
+          <rect x="300" y="160" rx="12" width="40" height="40" fill="url(#hg1)"/>
+          <g transform="translate(308,168)">
+            <path d="M2 8h18l-1.4 7H6.5L4 0H0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="7" cy="16" r="1.6" fill="#fff"/>
+            <circle cx="13" cy="16" r="1.6" fill="#fff"/>
+          </g>
+        </g>
+    
+        <!-- pastilles décoratives -->
+        <circle cx="470" cy="60" r="16" fill="url(#hg1)" opacity=".85"/>
+        <circle cx="430" cy="320" r="8" fill="#0D6EFD" opacity=".35"/>
+        <circle cx="50"  cy="340" r="10" fill="#22C55E" opacity=".35"/>
+      </svg>
+    </div>
+    
+</section>
+
+<!-- Catégories / Bannières marketing (exemple statique) -->
+<section class="row g-3">
+  <div class="col-md-4"><div class="card h-100 shadow-sm"><div class="card-body"><h5 class="card-title">Nouveautés</h5><p class="card-text text-secondary">Les dernières tendances.</p><a href="{{ url_for('product.index') }}" class="stretched-link">Explorer</a></div></div></div>
+  <div class="col-md-4"><div class="card h-100 shadow-sm"><div class="card-body"><h5 class="card-title">Meilleures ventes</h5><p class="card-text text-secondary">Les favoris de nos clients.</p><a href="{{ url_for('product.index') }}" class="stretched-link">Découvrir</a></div></div></div>
+  <div class="col-md-4"><div class="card h-100 shadow-sm"><div class="card-body"><h5 class="card-title">Promotions</h5><p class="card-text text-secondary">Des prix qui font plaisir.</p><a href="{{ url_for('product.index') }}" class="stretched-link">Profiter</a></div></div></div>
+</section>
+{% endblock %}

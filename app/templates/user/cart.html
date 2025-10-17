@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Mon Panier{% endblock %}
+{% block content %}
+  <h2>Mon Panier</h2>
+  {% if items %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Prix unitaire</th>
+          <th>Sous-total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr>
+            <td>{{ item.product.designation_p }}</td>
+            <td>
+              <form method="post" action="{{ url_for('cart.update', product_id=item.product.id_p) }}">
+                <input type="number" name="quantity" value="{{ item.quantity }}" min="0" class="form-control" style="width: 80px; display: inline;">
+                <button type="submit" class="btn btn-sm btn-primary">Mettre à jour</button>
+              </form>
+            </td>
+            <td>{{ item.product.prix_ht }}€</td>
+            <td>{{ item.subtotal }}€</td>
+            <td>
+              <form method="post" action="{{ url_for('cart.remove', product_id=item.product.id_p) }}" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h4>Total: {{ total }}€</h4>
+  {% else %}
+    <p>Panier vide</p>
+  {% endif %}
+{% endblock %}

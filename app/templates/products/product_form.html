@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{% if product %}Modifier{% else %}Ajouter{% endif %} produit{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h4 mb-3">{% if product %}Modifier{% else %}Ajouter{% endif %} un produit</h2>
+        <form method="post">
+          {{ form.hidden_tag() }}
+          <div class="mb-3">{{ form.type_p.label(class="form-label") }} {{ form.type_p(class="form-control") }}</div>
+          <div class="mb-3">{{ form.designation_p.label(class="form-label") }} {{ form.designation_p(class="form-control") }}</div>
+          <div class="mb-3">{{ form.prix_ht.label(class="form-label") }} {{ form.prix_ht(class="form-control") }}</div>
+          <div class="mb-3">{{ form.date_in.label(class="form-label") }} {{ form.date_in(class="form-control") }}</div>
+          <div class="mb-3">{{ form.stock_p.label(class="form-label") }} {{ form.stock_p(class="form-control") }}</div>
+          <div class="d-grid"><button class="btn btn-primary">{{ form.submit.label.text or 'Enregistrer' }}</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

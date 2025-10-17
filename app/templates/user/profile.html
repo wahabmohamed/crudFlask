@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Profil{% endblock %}
+{% block content %}
+  <h2>Profil</h2>
+  <form method="post">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.first_name.label }}<br>
+      {{ form.first_name(class="form-control", value=user.first_name) }}
+      {% for error in form.first_name.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.last_name.label }}<br>
+      {{ form.last_name(class="form-control", value=user.last_name) }}
+      {% for error in form.last_name.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.email.label }}<br>
+      {{ form.email(class="form-control", value=user.email) }}
+      {% for error in form.email.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.password.label }}<br>
+      {{ form.password(class="form-control") }}
+      {% for error in form.password.errors %}
+        <span class="text-danger">{{ error }}</span>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+    </div>
+  </form>
+{% endblock %}

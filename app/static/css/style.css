@@ -1,0 +1,36 @@
+:root{
+    --brand:#0d6efd;
+    --radius:1rem;
+  }
+  
+  .hero-gradient{
+    background: radial-gradient(1200px 600px at -10% -10%, rgba(13,110,253,.08), transparent 60%),
+                radial-gradient(800px 400px at 110% 0%, rgba(25,135,84,.05), transparent 50%);
+  }
+  
+  .card, .btn, .form-control, .badge, .dropdown-menu, .navbar, .alert { border-radius: var(--radius); }
+  
+  .product-card img{
+    aspect-ratio: 4/3;
+    object-fit: cover;
+  }
+  
+  .navbar .nav-link.active{
+    font-weight: 600;
+    color: var(--brand)!important;
+  }
+  
+  .btn-outline-primary:hover{ color:#fff; }
+  .hero-illust { display:block; max-width: 100%; height: auto; }
+
+  .brand-badge{
+    width: 28px; height: 28px; border-radius: 9999px;
+    background: linear-gradient(135deg, #0D6EFD, #22C55E);
+    display:inline-flex; align-items:center; justify-content:center;
+    color:#fff; font-size: 12px; box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  }
+  .brand-text{
+    font-weight: 800; font-size: 1.125rem; letter-spacing: .2px; color:#0D6EFD;
+  }
+  .navbar-brand img{display:block} /* au cas où, neutre si pas d'image */
+  

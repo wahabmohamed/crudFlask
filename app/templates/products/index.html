@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Produits{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Produits</h2>
+  {% if current_user.is_authenticated and current_user.is_admin %}
+    <a href="{{ url_for('product.create') }}" class="btn btn-primary">
+      <i class="fa-solid fa-plus me-1"></i> Ajouter un produit
+    </a>
+  {% endif %}
+</div>
+
+{% if products and products|length > 0 %}
+
+  {% if current_user.is_authenticated and current_user.is_admin %}
+    <!-- Vue admin: tableau -->
+    <div class="card shadow-sm">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Type</th><th>Désignation</th><th>Prix HT</th><th>Stock</th><th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in products %}
+            <tr>
+              <td>{{ p.type_p }}</td>
+              <td>{{ p.designation_p }}</td>
+              <td>{{ '{:,.2f}'.format(p.prix_ht) }} €</td>
+              <td><span class="badge {% if p.stock_p>0 %}text-bg-success{% else %}text-bg-secondary{% endif %}">{{ p.stock_p }}</span></td>
+              <td class="text-end">
+                <a href="{{ url_for('product.edit', id_p=p.id_p) }}" class="btn btn-sm btn-outline-warning"><i class="fa-solid fa-pen"></i></a>
+                <form method="post" action="{{ url_for('product.delete', id_p=p.id_p) }}" class="d-inline" onsubmit="return confirm('Supprimer ce produit ?')">
+                  <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  {% else %}
+    <!-- Vue client: cartes -->
+    <div class="row g-3">
+      {% for p in products %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm product-card">
+         <!--  <img src="{{ p.image_url  }}" class="card-img-top" alt="{{ p.designation_p }}">-->
+         {% if p.image_url %}
+  <img src="{{ p.image_url }}" class="card-img-top" alt="{{ p.designation_p }}">
+{% else %}
+  <div class="product-placeholder d-flex align-items-center justify-content-center">
+    <i class="fa-solid fa-bag-shopping me-2"></i> {{ p.type_p }}
+  </div>
+{% endif %}
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title mb-1">{{ p.designation_p }}</h6>
+            <small class="text-muted mb-2">{{ p.type_p }}</small>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <span class="fw-bold">{{ '{:,.2f}'.format(p.prix_ht) }} €</span>
+              {% if p.stock_p > 0 %}
+              <form method="post" action="{{ url_for('cart.add', product_id=p.id_p) }}" class="d-flex align-items-center gap-2">
+                <input type="number" name="quantity" value="1" min="1" max="{{ p.stock_p }}" class="form-control form-control-sm" style="width:80px">
+                <button class="btn btn-sm btn-primary"><i class="fa-solid fa-cart-plus me-1"></i>Ajouter</button>
+              </form>
+              {% else %}
+              <span class="badge text-bg-secondary">Rupture</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+{% else %}
+  <div class="text-center text-muted py-5">
+    <i class="fa-regular fa-face-frown fa-2x mb-2"></i>
+    <p>Aucun produit disponible.</p>
+  </div>
+{% endif %}
+{% endblock %}
